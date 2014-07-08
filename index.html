@@ -1,0 +1,109 @@
+<html>
+<head>
+	<title>Space Invaders</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="kinetic-v5.1.0.min.js"></script>
+	<script type="text/javascript" src="scripts.js"></script>
+	<script type="text/javascript">
+		var stateGame = "menu";
+		var levelGame = 1;
+
+		function setFrameHidden(id){
+			$("#"+id).toggleClass("hidden");
+		}
+		function setFrameVisible(id){
+			$("#"+id).toggleClass("hidden");
+		}
+		function startGame(level){
+			console.log("startgame");
+			levelGame = level;
+		}	
+
+
+	</script>
+</head>
+<body id="game">
+	<div id="gameContainer">
+		<div id="menuContainer" class="frame">
+			<span class="gameTitle spaceText">Earth invaders</span>
+			<ul> 
+				<li>
+					<button onclick="setFrameVisible('levelContainer');setFrameHidden('menuContainer');">Play</button>
+				</li>
+				<li>
+					<button onclick="setFrameVisible('howToPlayContainer');setFrameHidden('menuContainer');">How to play</button>
+				</li>
+
+				<li>
+					<button onclick="setFrameVisible('creditsContainer');setFrameHidden('menuContainer');">Credits</button>
+				</li>
+			</ul>
+
+		</div>
+		<div id="canvasContainer" class="frame hidden">
+			<canvas id="menuCanvas" width="800" height = "400"></canvas>	
+			<canvas id="backgroundCanvas" width="800" height = "400"></canvas>
+			<canvas id="playerCanvas" width="800" height = "400"></canvas>	
+			<canvas id="enemiesCanvas" width="800" height = "400"></canvas>
+
+		</div>
+		<div id="levelContainer" class="frame hidden">
+			<span class="spaceText">Earth invaders</span>
+			<div class="spaceContainer">
+				<h1>Choose level</h1>
+
+				<div onclick="setFrameVisible('canvasContainer');setFrameHidden('levelContainer');startGame(1);setStateGame('reset');" class="buttonLevel">Easy</div>
+				<div onclick="setFrameVisible('canvasContainer');setFrameHidden('levelContainer');startGame(2);setStateGame('reset');" class="buttonLevel">Difficult</div>				
+			</div>
+			<div class="buttonBack">
+				<button onclick="setFrameVisible('menuContainer');setFrameHidden('levelContainer');">Back</button>
+			</div>	
+		</div>		
+		<div id="howToPlayContainer" class="frame hidden">
+			<span class="spaceText">Earth invaders</span>
+			<div class="spaceContainer">
+				<h1>How to play</h1>
+				<div id="keyboard"></div>			
+									
+			</div>	
+			<div class="buttonBack">
+				<button onclick="setFrameVisible('menuContainer');setFrameHidden('howToPlayContainer');">Back</button>
+			</div>
+		</div>
+		<div id="optionsContainer" class="frame hidden">
+			<span class="spaceText">Earth invaders</span>
+			<div class="spaceContainer">
+				<h1>Options</h1>
+			</div>
+			<div class="buttonBack">
+				<button onclick="setFrameVisible('menuContainer');setFrameHidden('optionsContainer');">Back</button>
+			</div>
+		</div>
+		<div id="topRankingContainer" class="frame hidden">
+			<span class="spaceText">Earth invaders</span>
+			<div class="spaceContainer">
+				<h1>Top Ranking Container</h1>
+			</div>
+			<div class="buttonBack">
+				<button onclick="setFrameVisible('menuContainer');setFrameHidden('topRankingContainer');">Back</button>
+			</div>	
+		</div>
+		<div id="creditsContainer" class="frame hidden">
+			<span class="spaceText">Earth invaders</span>
+			<div class="spaceContainer">
+				<h1>Credits</h1>
+				<span>Programmer and designer by </span>	
+				<span>David Ortega Baglietto</span>
+				<span>2014</span>
+
+				<span>Mail: dobby85@gmail.com </span>
+				<span>Song: https://www.youtube.com/watch?v=KI4AbBNlf68</span>
+			</div>
+			<div class="buttonBack">
+				<button onclick="setFrameVisible('menuContainer');setFrameHidden('creditsContainer');">Back</button>
+			</div>	
+		</div>
+	</div>
+</body>
+</html>
