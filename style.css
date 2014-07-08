@@ -1,6 +1,6 @@
 @font-face {
     font-family: space;
-    src: url(SPACEBOY.ttf);
+    src: url(spaceboy.ttf);
 }
 
 canvas{
@@ -80,7 +80,15 @@ button:hover{
 	right: 50px;
 	bottom: 50px;
 }
-
+.buttonlevel{
+	border: 1px solid;
+	cursor: pointer;
+	display: inline-block;
+}
+.buttonlevel:hover{
+	border: 1px solid #888;
+	background-color: rgba(10,100,10, .5);
+}
 /*CONTAINERS WITH ID*/
 #gameContainer{
 	margin-top: 50px;
@@ -110,8 +118,6 @@ button:hover{
     background-size: 400px 165px;
 }
 #levelNormal{
-	cursor: pointer;
-	display: inline-block;
 	width: 150px;
 	height: 110px;
 	background-image:url('images/levelNormal.png');	 /*http://freewallsource.com/earth-wallpaper-1091.html/earth-wallpaper-1091 */
@@ -120,11 +126,30 @@ button:hover{
 	margin-right: 40px;
 }
 #levelHard{
-	cursor: pointer;
-	display: inline-block;
 	width: 150px;
 	height: 110px;
 	background-image:url('images/levelHard.png');	 /*http://freewallsource.com/earth-wallpaper-1091.html/earth-wallpaper-1091 */
     background-size: 150px 110px;
 }
+#iconEnemy{
+	width: 150px;
+	height: 110px;
+	background-image:url('images/enemy-right.png');	 /*http://freewallsource.com/earth-wallpaper-1091.html/earth-wallpaper-1091 */
+    background-size: 150px 110px;
+    position: absolute;
+    bottom: 80px;
+	left: 80px;
+}
 
+#iconShip{
+	width: 70px;
+	height: 100px;
+	background-image:url('images/player-up.png');	 /*http://freewallsource.com/earth-wallpaper-1091.html/earth-wallpaper-1091 */
+    background-size: 70px 100px;
+    position: absolute;
+    right: 150px;
+	top: 80px;
+	transform:rotate(-80deg);
+	-ms-transform:rotate(-80deg); /* IE 9 */
+	-webkit-transform:rotate(-80deg); /* Opera, Chrome, and Safari */
+}
