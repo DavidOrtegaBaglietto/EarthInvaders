@@ -18,12 +18,14 @@ button{
 	height: 30px;
 	background-color: #222288;
 	color: #AAA;
+	cursor:pointer;
 }
 button:hover{
 	border-color: #00ff00;
 	cursor: pointer;
 	color: #00ff00;
 	background-color: #101033;
+	cursor:pointer;
 }
 
 .frame{
@@ -102,8 +104,27 @@ button:hover{
 	margin-top: 20px;
 }
 #keyboard{
-	width: 300px;
+	width: 400px;
 	height: 165px;
 	background-image:url('images/keyboard.png');	 /*http://freewallsource.com/earth-wallpaper-1091.html/earth-wallpaper-1091 */
-    background-size: 300px 165px;
+    background-size: 400px 165px;
 }
+#levelNormal{
+	cursor: pointer;
+	display: inline-block;
+	width: 150px;
+	height: 110px;
+	background-image:url('images/levelNormal.png');	 /*http://freewallsource.com/earth-wallpaper-1091.html/earth-wallpaper-1091 */
+    background-size: 150px 110px;
+    margin-left: 50;
+	margin-right: 40px;
+}
+#levelHard{
+	cursor: pointer;
+	display: inline-block;
+	width: 150px;
+	height: 110px;
+	background-image:url('images/levelHard.png');	 /*http://freewallsource.com/earth-wallpaper-1091.html/earth-wallpaper-1091 */
+    background-size: 150px 110px;
+}
+

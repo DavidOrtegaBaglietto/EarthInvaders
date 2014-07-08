@@ -79,6 +79,8 @@
 
 		game.keys = [];
 
+		game.levelChoise = 1
+		game.levelGame = 1
 		game.numRound = 1;
 		game.levels = [
 			{velShootEne: 2,
@@ -148,16 +150,21 @@
 				requestAnimFrame(function(){
 					loop();
 				});	
-				if(!game.gameOver && !game.gameWon){
-					renderGame();
-					updateGame();	
-				}
-				if(game.gameOver){
-					renderStateOver();
-					updateGameStatus();
-				}
-				if(game.gameWon){
-					renderStateWon();
+				if(!game.stop){
+					if(!game.gameOver && !game.gameWon){
+						renderGame();
+						updateGame();	
+					}
+					if(game.gameOver){
+						renderStateOver();
+						updateGameStatus();
+					}
+					if(game.gameWon){
+						renderStateWon();
+						updateGameStatus();
+					}
+				}else{
+					renderStatePause();
 					updateGameStatus();
 				}
 
@@ -210,6 +217,8 @@
 			}
 			if(game.keys[27] && !game.gameOver && !game.gameWon){
 				// PRESSED ESC
+				game.stop = true
+
 			}
 			if(game.keys[80] && !game.gameOver && !game.gameWon){
 				// PRESSED P
@@ -308,13 +317,13 @@
 
 			for(i in game.enemies){
 					if(game.left){
-						game.enemies[i].x -= game.levels[levelGame-1].velEnemyX;
+						game.enemies[i].x -= game.levels[game.levelGame-1].velEnemyX * game.levelChoise;
 					}else{
-						game.enemies[i].x += game.levels[levelGame-1].velEnemyX;
+						game.enemies[i].x += game.levels[game.levelGame-1].velEnemyX * game.levelChoise;
 				}
 
 				if(game.down){
-					game.enemies[i].y += game.levels[levelGame-1].velEnemyY;
+					game.enemies[i].y += game.levels[game.levelGame-1].velEnemyY;
 				}
 
 
@@ -378,7 +387,7 @@
 		function updateEnemiesShoots(){	
 			for(var i in game.enemiesShoots){
 				var shoot = game.enemiesShoots[i];
-				shoot.y += game.levels[levelGame-1].velShootEne;
+				shoot.y += game.levels[game.levelGame-1].velShootEne;
 			}
 			game.enemiesShoots = game.enemiesShoots.filter(function(shoot){
 				return shoot.y < canvas.height;
@@ -449,6 +458,7 @@
 			if(test) console.log("updateGameStatus");
 			if(game.keys[13] && game.gameOver){
 				if(!game.stop){
+					game.levelGame = levelGame;
 					setFrameHidden("canvasContainer");
 					setFrameHidden('menuContainer');
 					game.gameOver = false;
@@ -463,21 +473,37 @@
 					game.gameWon = false;
 					game.stop = true;
 					stateGame = "nextLevel"
-					if(game.numRound == 4 && levelGame == 1){
-						levelGame = 2;
+					if(game.numRound == 4 && game.levelGame == 1){
+						game.levelGame = 2;
 						game.numRound = 1;
 					}
-					if(game.numRound == 3 && levelGame == 2){
+					if(game.numRound == 3 && game.levelGame == 2){
 						game.numRound = 1;
-						game.levels[levelGame-1].velShootEne++ ;
+						game.levels[game.levelGame-1].velShootEne++ ;
 					}
 				}
 			}
 			if(game.keys[82] && game.gameOver && !game.gameWon){
 				// PRESSED R
+				game.numRound = 1;
+				game.levelGame = 1
 				game.gameWon = false;
 				game.stop = true;
 				stateGame = "reset"	
+			}
+			if(game.keys[89] && game.stop){
+				// PRESSED Y
+				game.levelGame = levelGame;
+				setFrameHidden("canvasContainer");
+				setFrameHidden('menuContainer');
+				game.gameOver = false;
+				game.stop = true;
+				stateGame = "menu";
+			}
+			if(game.keys[78] && game.stop){
+				// PRESSED N
+				game.stop = false;
+				game.contextMenu.clearRect(game.width / 2 - 160, game.height - 250, 360, 200);
 			}
 		}
 
@@ -524,13 +550,24 @@
 			game.contextMenu.font = "bold 25px monaco";
 			game.contextMenu.fillStyle = "#00ff00";				
 			game.contextMenu.clearRect(45, 29, 710, 50);
-			game.contextMenu.fillText("Level: " + levelGame, 100, 50);
+			game.contextMenu.fillText("Level: " + game.levelGame, 100, 50);
 			game.contextMenu.fillText("Round: " + game.numRound, 220, 50);
 			game.contextMenu.fillText("Score: " + game.puntuation, 410, 50);
 			game.contextMenu.fillText("Time: " + game.time/100, 550, 50);
 		}
 
-		function statePause(){
+		function renderStatePause(){
+			if(test) console.log("renderStateOver");
+			game.contextMenu.save();
+			game.contextMenu.shadowColor = '#111';
+			game.contextMenu.shadowBlur = 2;
+			game.contextMenu.shadowOffsetX = 0;
+			game.contextMenu.shadowOffsetY = 0;
+			game.contextMenu.font = "bold 25px monaco";
+			game.contextMenu.fillStyle = "#DDffDD";
+			game.contextMenu.fillText("Do you want to exit?",game.width / 2 - 140, game.height - 150);
+			game.contextMenu.fillText("Press Y (Yes) or N (No)",game.width / 2 - 130, game.height - 100);
+			game.contextMenu.restore();
 		}
 
 		function renderStateWon(){
@@ -573,7 +610,11 @@
 			if(!all){
 				game.puntuation = 0;
 				game.time = 0;
+				game.numRound = 1;
+				game.levelChoise = levelGame;
+				game.levelGame = 1;
 			}
+			game.contextMenu.clearRect(game.width / 2 - 160, game.height - 250, 360, 200);
 			game.enemiesShoots = [];
 			game.player.x = game.playerReset.x;
 			game.player.y= game.playerReset.y;

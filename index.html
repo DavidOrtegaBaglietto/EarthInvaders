@@ -53,8 +53,8 @@
 			<div class="spaceContainer">
 				<h1>Choose level</h1>
 
-				<div onclick="setFrameVisible('canvasContainer');setFrameHidden('levelContainer');startGame(1);setStateGame('reset');" class="buttonLevel">Easy</div>
-				<div onclick="setFrameVisible('canvasContainer');setFrameHidden('levelContainer');startGame(2);setStateGame('reset');" class="buttonLevel">Difficult</div>				
+				<div id="levelNormal" onclick="setFrameVisible('canvasContainer');setFrameHidden('levelContainer');startGame(1);setStateGame('reset');" class="buttonLevel"></div>
+				<div id="levelHard" onclick="setFrameVisible('canvasContainer');setFrameHidden('levelContainer');startGame(2);setStateGame('reset');" class="buttonLevel"></div>				
 			</div>
 			<div class="buttonBack">
 				<button onclick="setFrameVisible('menuContainer');setFrameHidden('levelContainer');">Back</button>
